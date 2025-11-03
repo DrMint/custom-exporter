@@ -1,5 +1,5 @@
-import { OpenMetrics } from "../common/open-metrics";
-import { Hwmon } from "./hwmon";
+import { OpenMetrics } from "src/common/open-metrics";
+import { Hwmon } from "src/hwmon/hwmon";
 
 export const hwmonEndpoint = async (): Promise<Response> => {
   const hwmon = await Hwmon.getHwmon();
@@ -14,7 +14,7 @@ export const hwmonEndpoint = async (): Promise<Response> => {
     hwmon.temperatures.map((temperature) => ({
       labels: { name: temperature.name, device: temperature.device },
       value: temperature.value,
-    }))
+    })),
   );
 
   return openMetrics.toResponse();

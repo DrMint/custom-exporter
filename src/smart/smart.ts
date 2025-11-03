@@ -85,7 +85,7 @@ type TermSmartctlNvme = TermSmartctlCommon & {
 
 export class Smart {
   private constructor(
-    readonly smartReport: TermSmartctlNvme | TermSmartctlSata
+    readonly smartReport: TermSmartctlNvme | TermSmartctlSata,
   ) {}
 
   get properties(): TermSmartctlNvme | TermSmartctlSata {
@@ -103,32 +103,32 @@ export class Smart {
           ...JSON.parse(
             await spawn({
               cmd: ["smartctl", "--json", "--all", `/dev/${blockDevice.name}`],
-            }).stdout.text()
+            }).stdout.text(),
           ),
           name: blockDevice.name,
         };
-      })
+      }),
     );
     return smartReports.map((smartReport) => new Smart(smartReport));
   }
 
   static filterOnlyHdds(
-    smartReports: (TermSmartctlNvme | TermSmartctlSata)[]
+    smartReports: (TermSmartctlNvme | TermSmartctlSata)[],
   ): TermSmartctlSata[] {
     return smartReports.filter(
       (smartReport) =>
         smartReport.device.type === "sat" &&
-        smartReport.device.protocol === "ATA"
+        smartReport.device.protocol === "ATA",
     ) as TermSmartctlSata[];
   }
 
   static filterOnlyNvmes(
-    smartReports: (TermSmartctlNvme | TermSmartctlSata)[]
+    smartReports: (TermSmartctlNvme | TermSmartctlSata)[],
   ): TermSmartctlNvme[] {
     return smartReports.filter(
       (smartReport) =>
         smartReport.device.type === "nvme" &&
-        smartReport.device.protocol === "NVMe"
+        smartReport.device.protocol === "NVMe",
     ) as TermSmartctlNvme[];
   }
 }

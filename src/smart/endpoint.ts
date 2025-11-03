@@ -1,5 +1,5 @@
-import { OpenMetrics } from "../common/open-metrics";
-import { Smart, type TermSmartctlCommon } from "./smart";
+import { OpenMetrics } from "src/common/open-metrics";
+import { Smart, type TermSmartctlCommon } from "src/smart/smart";
 
 export const hddEndpoint = async (): Promise<Response> => {
   const smarts = await Smart.getAllSmartReports();
@@ -20,7 +20,7 @@ export const hddEndpoint = async (): Promise<Response> => {
       .map((hdd) => ({
         labels: { device: hdd.name },
         value: hdd.rotation_rate,
-      }))
+      })),
   );
 
   openMetrics.addGauge(
@@ -31,7 +31,7 @@ export const hddEndpoint = async (): Promise<Response> => {
     hdds.map((hdd) => ({
       labels: { device: hdd.name },
       value: hdd.physical_block_size,
-    }))
+    })),
   );
 
   openMetrics.addInfo(
@@ -44,7 +44,7 @@ export const hddEndpoint = async (): Promise<Response> => {
       .map((hdd) => ({
         device: hdd.name,
         form_factor: hdd.form_factor!.name,
-      }))
+      })),
   );
 
   openMetrics.addInfo(
@@ -55,7 +55,7 @@ export const hddEndpoint = async (): Promise<Response> => {
     hdds.map((hdd) => ({
       device: hdd.name,
       interface_speed: hdd.interface_speed.current.string,
-    }))
+    })),
   );
 
   return openMetrics.toResponse();
@@ -76,7 +76,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: ssd.nvme_smart_health_information_log.critical_warning === 0,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -88,7 +88,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: 1 - ssd.nvme_smart_health_information_log.percentage_used / 100,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -100,7 +100,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: ssd.nvme_smart_health_information_log.available_spare / 100,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -114,7 +114,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
       labels: { device: ssd.name },
       value:
         ssd.nvme_smart_health_information_log.available_spare_threshold / 100,
-    }))
+    })),
   );
 
   openMetrics.addCounter(
@@ -125,7 +125,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: ssd.nvme_smart_health_information_log.unsafe_shutdowns,
-    }))
+    })),
   );
 
   openMetrics.addCounter(
@@ -136,7 +136,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: ssd.nvme_smart_health_information_log.media_errors,
-    }))
+    })),
   );
 
   openMetrics.addCounter(
@@ -147,7 +147,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
     ssds.map((ssd) => ({
       labels: { device: ssd.name },
       value: ssd.nvme_smart_health_information_log.num_err_log_entries,
-    }))
+    })),
   );
 
   return openMetrics.toResponse();
@@ -155,7 +155,7 @@ export const ssdEndpoint = async (): Promise<Response> => {
 
 const commonSmartMetrics = (
   reports: TermSmartctlCommon[],
-  openMetrics: OpenMetrics
+  openMetrics: OpenMetrics,
 ) => {
   openMetrics.addInfo(
     {
@@ -168,7 +168,7 @@ const commonSmartMetrics = (
       serial_number: report.serial_number,
       type: report.device.type,
       protocol: report.device.protocol,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -180,7 +180,7 @@ const commonSmartMetrics = (
     reports.map((report) => ({
       labels: { device: report.name },
       value: report.temperature.current,
-    }))
+    })),
   );
 
   openMetrics.addCounter(
@@ -191,7 +191,7 @@ const commonSmartMetrics = (
     reports.map((report) => ({
       labels: { device: report.name },
       value: report.power_cycle_count,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -203,7 +203,7 @@ const commonSmartMetrics = (
     reports.map((report) => ({
       labels: { device: report.name },
       value: report.power_on_time.hours * 3600,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -215,7 +215,7 @@ const commonSmartMetrics = (
     reports.map((report) => ({
       labels: { device: report.name },
       value: report.user_capacity.bytes,
-    }))
+    })),
   );
 
   openMetrics.addBoolean(
@@ -226,6 +226,6 @@ const commonSmartMetrics = (
     reports.map((report) => ({
       labels: { device: report.name },
       value: report.smart_status.passed,
-    }))
+    })),
   );
 };

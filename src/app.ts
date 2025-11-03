@@ -1,10 +1,10 @@
-import { zfsEndpoint } from "./zfs/endpoint";
-import { hddEndpoint } from "./smart/endpoint";
-import { ssdEndpoint } from "./smart/endpoint";
-import { zpoolEndpoint } from "./zpool/endpoint";
-import { hwmonEndpoint } from "./hwmon/endpoint";
-import { sysinfoEndpoint } from "./sysinfo/endpoint";
-import { blockStatEndpoint } from "./blockStat/endpoint";
+import { zfsEndpoint } from "src/zfs/endpoint";
+import { hddEndpoint } from "src/smart/endpoint";
+import { ssdEndpoint } from "src/smart/endpoint";
+import { zpoolEndpoint } from "src/zpool/endpoint";
+import { hwmonEndpoint } from "src/hwmon/endpoint";
+import { sysinfoEndpoint } from "src/sysinfo/endpoint";
+import { blockStatEndpoint } from "src/blockStat/endpoint";
 
 Bun.serve({
   port: 8000,

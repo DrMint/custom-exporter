@@ -1,5 +1,5 @@
-import { OpenMetrics } from "../common/open-metrics";
-import { BlockStat } from "./blockStat";
+import { OpenMetrics } from "src/common/open-metrics";
+import { BlockStat } from "src/blockStat/blockStat";
 
 let blockStats: BlockStat[];
 
@@ -25,7 +25,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.readsCompleted,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -36,7 +36,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.readsMerged,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -47,7 +47,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.sectorsRead,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -59,7 +59,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.readTime,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -70,7 +70,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.writesCompleted,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -81,7 +81,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.writesMerged,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -92,7 +92,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.sectorsWritten,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -104,7 +104,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.writeTime,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -115,7 +115,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     blockStats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.iopsInProgress,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -127,7 +127,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.ioTime,
-    }))
+    })),
   );
 
   // Skipping weighted_io_time because it is not useful
@@ -140,7 +140,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.discardsCompleted,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -151,7 +151,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.discardsMerged,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -162,7 +162,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.sectorsDiscarded,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -174,7 +174,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.discardTime,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -185,7 +185,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.flushRequestsCompleted,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -197,7 +197,7 @@ export const blockStatEndpoint = async (): Promise<Response> => {
     stats.map((blockStat) => ({
       labels: { name: blockStat.name },
       value: blockStat.stat.flushTime,
-    }))
+    })),
   );
 
   return openMetrics.toResponse();

@@ -62,7 +62,11 @@ export class BlockStat {
   private previousStat: BlockStatObject | undefined;
   private previousTime: number | undefined;
 
-  constructor(readonly name: string, stat: BlockStatObject, time: number) {
+  constructor(
+    readonly name: string,
+    stat: BlockStatObject,
+    time: number,
+  ) {
     this.stat = stat;
     this.time = time;
   }
@@ -134,11 +138,11 @@ export class BlockStat {
       blockNames.map(async (blockName) => {
         const blockStat = await this.getBlockStat(blockName);
         return { blockName, blockStat };
-      })
+      }),
     );
 
     return blockStats.map(
-      ({ blockName, blockStat }) => new BlockStat(blockName, blockStat, now)
+      ({ blockName, blockStat }) => new BlockStat(blockName, blockStat, now),
     );
   }
 
@@ -150,7 +154,7 @@ export class BlockStat {
   }
 
   private static async getBlockStat(
-    blockName: string
+    blockName: string,
   ): Promise<BlockStatObject> {
     const blockStat = await spawn({
       cmd: ["cat", `/sys/block/${blockName}/stat`],

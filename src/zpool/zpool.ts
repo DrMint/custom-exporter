@@ -65,7 +65,7 @@ export class ZPool {
       Object.values(rootVdev.vdevs ?? {}).map((vdev) => ({
         ...vdev,
         pool: this.zpool.name,
-      }))
+      })),
     );
   }
 
@@ -74,7 +74,7 @@ export class ZPool {
       Object.values(vdev.vdevs ?? {})
         .flatMap((vdev) => vdev)
         .filter((vdev) => vdev.vdev_type === "disk")
-        .map((disk) => ({ ...disk, vdev: vdev.name, pool: this.zpool.name }))
+        .map((disk) => ({ ...disk, vdev: vdev.name, pool: this.zpool.name })),
     );
   }
 

@@ -1,5 +1,5 @@
-import { OpenMetrics } from "../common/open-metrics";
-import { ZPool } from "./zpool";
+import { OpenMetrics } from "src/common/open-metrics";
+import { ZPool } from "src/zpool/zpool";
 
 export const zpoolEndpoint = async (): Promise<Response> => {
   const zpools = await ZPool.getAllZpool();
@@ -13,7 +13,7 @@ export const zpoolEndpoint = async (): Promise<Response> => {
     zpools.map((zpool) => ({
       labels: { pool: zpool.properties.name, state: zpool.properties.state },
       value: zpool.properties.error_count,
-    }))
+    })),
   );
 
   openMetrics.addInfo(
@@ -27,8 +27,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
         vdev: vdev.name,
         state: vdev.state,
         type: vdev.vdev_type,
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addInfo(
@@ -46,8 +46,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
         ...("devid" in disk && { devid: disk.devid }),
         ...("phys_path" in disk && { phys_path: disk.phys_path }),
         ...("path" in disk && { path: disk.path }),
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -64,8 +64,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
           disk.checksum_errors +
           (disk.trim_errors ?? 0) +
           (disk.slow_ios ?? 0),
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -77,8 +77,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
       zpool.disks.map((disk) => ({
         labels: { disk: disk.name, pool: disk.pool, vdev: disk.vdev },
         value: disk.read_errors,
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -90,8 +90,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
       zpool.disks.map((disk) => ({
         labels: { disk: disk.name, pool: disk.pool, vdev: disk.vdev },
         value: disk.write_errors,
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -103,8 +103,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
       zpool.disks.map((disk) => ({
         labels: { disk: disk.name, pool: disk.pool, vdev: disk.vdev },
         value: disk.checksum_errors,
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -121,9 +121,9 @@ export const zpoolEndpoint = async (): Promise<Response> => {
                 value: disk.slow_ios,
               },
             ]
-          : []
-      )
-    )
+          : [],
+      ),
+    ),
   );
 
   openMetrics.addBoolean(
@@ -135,8 +135,8 @@ export const zpoolEndpoint = async (): Promise<Response> => {
       zpool.disks.map((disk) => ({
         labels: { disk: disk.name, pool: disk.pool, vdev: disk.vdev },
         value: disk.trim_notsup === 0,
-      }))
-    )
+      })),
+    ),
   );
 
   openMetrics.addCounter(
@@ -153,9 +153,9 @@ export const zpoolEndpoint = async (): Promise<Response> => {
                 value: disk.trim_errors,
               },
             ]
-          : []
-      )
-    )
+          : [],
+      ),
+    ),
   );
 
   openMetrics.addInfo(
@@ -173,13 +173,13 @@ export const zpoolEndpoint = async (): Promise<Response> => {
                 vdev: disk.vdev,
                 trim_state: disk.trim_state,
                 trim_time: new Date(
-                  Number(disk.trim_time) * 1000
+                  Number(disk.trim_time) * 1000,
                 ).toISOString(),
               },
             ]
-          : []
-      )
-    )
+          : [],
+      ),
+    ),
   );
 
   return openMetrics.toResponse();

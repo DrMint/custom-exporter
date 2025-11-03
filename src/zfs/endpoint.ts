@@ -1,5 +1,5 @@
-import { ZfsDataset } from "./zfs-dataset";
-import { OpenMetrics } from "../common/open-metrics";
+import { ZfsDataset } from "src/zfs/zfs-dataset";
+import { OpenMetrics } from "src/common/open-metrics";
 
 export const zfsEndpoint = async (): Promise<Response> => {
   const datasets = await ZfsDataset.getAllDatasets();
@@ -13,9 +13,9 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       dataset: dataset.dataset.name,
       creation: new Date(
-        Number(dataset.properties.creation.value) * 1000
+        Number(dataset.properties.creation.value) * 1000,
       ).toISOString(),
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -28,7 +28,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: Number(dataset.properties.used.value),
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -41,7 +41,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: Number(dataset.properties.available.value),
-    }))
+    })),
   );
 
   openMetrics.addInfo(
@@ -52,7 +52,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       dataset: dataset.dataset.name,
       mountpoint: dataset.properties.mountpoint.value,
-    }))
+    })),
   );
 
   openMetrics.addGauge(
@@ -64,7 +64,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: Number(dataset.properties.compressratio.value),
-    }))
+    })),
   );
 
   openMetrics.addInfo(
@@ -75,7 +75,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       dataset: dataset.dataset.name,
       compression: dataset.properties.compression.value,
-    }))
+    })),
   );
 
   openMetrics.addBoolean(
@@ -86,7 +86,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: dataset.properties.atime.value === "on",
-    }))
+    })),
   );
 
   openMetrics.addBoolean(
@@ -97,7 +97,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: dataset.properties.relatime.value === "on",
-    }))
+    })),
   );
 
   openMetrics.addBoolean(
@@ -108,7 +108,7 @@ export const zfsEndpoint = async (): Promise<Response> => {
     datasets.map((dataset) => ({
       labels: { dataset: dataset.dataset.name },
       value: dataset.properties.encryption.value === "on",
-    }))
+    })),
   );
 
   return openMetrics.toResponse();

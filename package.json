@@ -2,15 +2,19 @@
   "name": "node-zpool",
   "private": true,
   "scripts": {
-    "start": "bun run src/app.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+    "start": "bun run src/app.ts",
+    "format": "prettier --write --list-different .",
+    "tsc": "tsc",
+    "precommit": "bun run tsc && bun run format",
+    "upgrade": "ncu"
   },
   "dependencies": {
     "systeminformation": "^5.27.11"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "npm-check-updates": "^19.1.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5"
   }
 }

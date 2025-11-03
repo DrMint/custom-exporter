@@ -13,7 +13,7 @@ export class OpenMetrics {
 
   addBoolean(
     model: OpenMetricsDataModel,
-    entries: { value: boolean; labels?: Record<string, string> }[]
+    entries: { value: boolean; labels?: Record<string, string> }[],
   ) {
     model.name = `${this.moduleName}_${model.name}`;
     this.addDataModel(model, "stateset");
@@ -39,7 +39,7 @@ export class OpenMetrics {
 
   addCounter(
     model: OpenMetricsDataModelWithUnit,
-    entries: { value: number; labels?: Record<string, string> }[]
+    entries: { value: number; labels?: Record<string, string> }[],
   ) {
     model.name = `${this.moduleName}_${model.name}${
       model.unit ? `_${model.unit}` : ""
@@ -52,7 +52,7 @@ export class OpenMetrics {
 
   addGauge(
     model: OpenMetricsDataModelWithUnit,
-    entries: { value: number; labels?: Record<string, string> }[]
+    entries: { value: number; labels?: Record<string, string> }[],
   ) {
     model.name = `${this.moduleName}_${model.name}${
       model.unit ? `_${model.unit}` : ""
@@ -73,7 +73,7 @@ export class OpenMetrics {
       | "info"
       | "histogram"
       | "gaugehistogram"
-      | "summary"
+      | "summary",
   ) {
     this.lines.push(`# TYPE ${model.name} ${type}`);
     this.lines.push(`# HELP ${model.name} ${model.description}`);
@@ -85,7 +85,7 @@ export class OpenMetrics {
   private addLine(
     propertyName: string,
     value?: number,
-    labels?: Record<string, string>
+    labels?: Record<string, string>,
   ) {
     const labelString = labels
       ? `{${Object.entries(labels)

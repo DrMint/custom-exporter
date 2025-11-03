@@ -1,5 +1,5 @@
 import si from "systeminformation";
-import { OpenMetrics } from "../common/open-metrics";
+import { OpenMetrics } from "src/common/open-metrics";
 import { $ } from "bun";
 
 export const sysinfoEndpoint = async (): Promise<Response> => {
@@ -29,7 +29,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
       description: "The load on the CPU.",
       unit: "ratio",
     },
-    [{ value: load.currentLoad / 100 }]
+    [{ value: load.currentLoad / 100 }],
   );
 
   sysInfo.addGauge(
@@ -41,7 +41,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
     load.cpus.map((cpu, index) => ({
       labels: { core: `C${index}` },
       value: cpu.load / 100,
-    }))
+    })),
   );
 
   sysInfo.addGauge(
@@ -53,7 +53,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
     cpuCurrentSpeed.cores.map((value, index) => ({
       labels: { core: `C${index}` },
       value: value * 1000 * 1000 * 1000,
-    }))
+    })),
   );
 
   sysInfo.addGauge(
@@ -62,7 +62,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
       description: "The total amount of memory.",
       unit: "bytes",
     },
-    [{ value: total }]
+    [{ value: total }],
   );
 
   sysInfo.addGauge(
@@ -71,7 +71,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
       description: "The available amount of memory.",
       unit: "bytes",
     },
-    [{ value: available }]
+    [{ value: available }],
   );
 
   sysInfo.addGauge(
@@ -80,7 +80,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
       description: "The used amount of memory.",
       unit: "bytes",
     },
-    [{ value: used }]
+    [{ value: used }],
   );
 
   sysInfo.addGauge(
@@ -92,7 +92,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
     fsSize.map((fs) => ({
       labels: { name: fs.fs },
       value: fs.used,
-    }))
+    })),
   );
 
   sysInfo.addGauge(
@@ -104,7 +104,7 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
     fsSize.map((fs) => ({
       labels: { name: fs.fs },
       value: fs.available,
-    }))
+    })),
   );
 
   return sysInfo.toResponse();
