@@ -56,7 +56,7 @@ type Container = {
 export class DockerContainer {
   private constructor(
     readonly ps: TermDockerPs,
-    readonly stats: TermDockerStats,
+    readonly stats: TermDockerStats
   ) {}
 
   get container(): Container {
@@ -150,11 +150,14 @@ export class DockerContainer {
         ],
       }).stdout.text(),
     ]);
+
     const psContainers: TermDockerPs[] = psOutput
       .split("\n")
+      .filter((line) => line !== "")
       .map((line) => JSON.parse(line));
     const statsContainers: TermDockerStats[] = statsOutput
       .split("\n")
+      .filter((line) => line !== "")
       .map((line) => JSON.parse(line));
 
     return psContainers.flatMap((ps) => {
