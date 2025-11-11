@@ -100,11 +100,11 @@ export class DockerContainer {
 
     switch (unit) {
       case "KiB":
-        return Number(usage.replace("KiB", "")) * 1024;
+        return Math.floor(Number(usage.replace("KiB", "")) * 1024);
       case "MiB":
-        return Number(usage.replace("MiB", "")) * 1024 * 1024;
+        return Math.floor(Number(usage.replace("MiB", "")) * 1024 * 1024);
       case "GiB":
-        return Number(usage.replace("GiB", "")) * 1024 * 1024 * 1024;
+        return Math.floor(Number(usage.replace("GiB", "")) * 1024 * 1024 * 1024);
       default:
         throw new Error(`Invalid memory usage: ${memUsage}`);
     }
