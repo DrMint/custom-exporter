@@ -5,6 +5,7 @@ import { zpoolEndpoint } from "src/zpool/endpoint";
 import { hwmonEndpoint } from "src/hwmon/endpoint";
 import { sysinfoEndpoint } from "src/sysinfo/endpoint";
 import { blockStatEndpoint } from "src/blockStat/endpoint";
+import { dockerEndpoint } from "./docker/endpoint";
 
 Bun.serve({
   port: 8000,
@@ -25,6 +26,8 @@ Bun.serve({
         return hddEndpoint();
       case "/smart/ssd":
         return ssdEndpoint();
+      case "/docker":
+        return dockerEndpoint();
       default:
         return new Response("Not found", { status: 404 });
     }
