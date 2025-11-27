@@ -96,7 +96,8 @@ export class DockerContainer {
       throw new Error(`Invalid memory usage: ${memUsage}`);
     }
 
-    const unit = usage.slice(-3);
+    // Remove the number part. E.g: 17.5MiB -> MiB
+    const unit = usage.replace(/(^\d+\.?\d*)\s*/, "").trim();
 
     switch (unit) {
       case "B":
