@@ -9,7 +9,7 @@ type TermHwmon = {
     };
   };
   /* nvme-Samsung_SSD_970_EVO_Plus_500GB_S4EVNF0M698680B nvme1n1 */
-  "nvme-pci-0300": {
+  "nvme-pci-0400": {
     Adapter: string;
     Composite: {
       temp1_input: number;
@@ -18,7 +18,7 @@ type TermHwmon = {
     };
   };
   /* nvme-CT500P310SSD8_25164FAF1C4F nvme0n1 */
-  "nvme-pci-0400": {
+  "nvme-pci-0500": {
     Adapter: string;
     Composite: {
       temp1_input: number;
@@ -41,12 +41,12 @@ export class Hwmon {
       {
         name: "nvme0n1",
         device: "Samsung_SSD_970_EVO_Plus_500GB_S4EVNF0M698680B",
-        value: this.hwmon["nvme-pci-0300"].Composite.temp1_input,
+        value: this.hwmon["nvme-pci-0400"].Composite.temp1_input,
       },
       {
         name: "nvme1n1",
         device: "CT500P310SSD8_25164FAF1C4F",
-        value: this.hwmon["nvme-pci-0400"].Composite.temp1_input,
+        value: this.hwmon["nvme-pci-0500"].Composite.temp1_input,
       },
     ];
   }
