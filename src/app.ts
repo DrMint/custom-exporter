@@ -6,6 +6,7 @@ import { hwmonEndpoint } from "src/hwmon/endpoint";
 import { sysinfoEndpoint } from "src/sysinfo/endpoint";
 import { blockStatEndpoint } from "src/blockStat/endpoint";
 import { dockerEndpoint } from "./docker/endpoint";
+import { mqttEndpoint } from "./mqtt/endpoint";
 
 Bun.serve({
   port: 8000,
@@ -28,6 +29,8 @@ Bun.serve({
         return ssdEndpoint();
       case "/docker":
         return dockerEndpoint();
+      case "/mqtt":
+        return mqttEndpoint();
       default:
         return new Response("Not found", { status: 404 });
     }

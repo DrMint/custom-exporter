@@ -9,6 +9,7 @@
     "upgrade": "ncu"
   },
   "dependencies": {
+    "mqtt": "^5.15.0",
     "systeminformation": "^5.27.11"
   },
   "devDependencies": {
