@@ -102,7 +102,10 @@ export const sysinfoEndpoint = async (): Promise<Response> => {
       unit: "bytes",
     },
     fsSize.map((fs) => ({
-      labels: { name: fs.fs },
+      labels: {
+        name: fs.fs,
+        mountpoint: fs.mount,
+      },
       value: fs.available,
     })),
   );
