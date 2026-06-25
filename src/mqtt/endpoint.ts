@@ -2,7 +2,7 @@ import { OpenMetrics } from "src/common/open-metrics";
 import { getMqttState } from "src/mqtt/mqtt";
 
 export const mqttEndpoint = async (): Promise<Response> => {
-  const { melchiorPlug, livingRoomTemp } = getMqttState();
+  const { melchiorPlug, livingRoomTemp, outsideTemp } = getMqttState();
   const openMetrics = new OpenMetrics("mqtt");
 
   if (melchiorPlug) {
@@ -61,6 +61,48 @@ export const mqttEndpoint = async (): Promise<Response> => {
         {
           labels: { device: "living-room-temp" },
           value: livingRoomTemp.temperature,
+        },
+      ],
+    );
+  }
+
+  if (outsideTemp) {
+    openMetrics.addGauge(
+      {
+        name: "battery",
+        description: "Battery level.",
+        unit: "percent",
+      },
+      [
+        {
+          labels: { device: "outside-temp" },
+          value: outsideTemp.battery,
+        },
+      ],
+    );
+    openMetrics.addGauge(
+      {
+        name: "humidity",
+        description: "Relative humidity.",
+        unit: "percent",
+      },
+      [
+        {
+          labels: { device: "outside-temp" },
+          value: outsideTemp.humidity,
+        },
+      ],
+    );
+    openMetrics.addGauge(
+      {
+        name: "temperature",
+        description: "Temperature.",
+        unit: "celsius",
+      },
+      [
+        {
+          labels: { device: "outside-temp" },
+          value: outsideTemp.temperature,
         },
       ],
     );

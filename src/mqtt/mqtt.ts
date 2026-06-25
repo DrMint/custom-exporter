@@ -4,15 +4,18 @@ import type { PlugMessage, TempSensorMessage } from "./types";
 const BROKER_URL = "mqtt://localhost:1883";
 const TOPIC_PLUG = "zigbee2mqtt/melchior-plug";
 const TOPIC_TEMP = "zigbee2mqtt/living-room-temp";
+const TOPIC_OUTSIDE_TEMP = "zigbee2mqtt/outside-temp";
 
 type MqttState = {
   melchiorPlug: PlugMessage | null;
   livingRoomTemp: TempSensorMessage | null;
+  outsideTemp: TempSensorMessage | null;
 };
 
 const state: MqttState = {
   melchiorPlug: null,
   livingRoomTemp: null,
+  outsideTemp: null,
 };
 
 const client = mqtt.connect(BROKER_URL);
@@ -23,6 +26,9 @@ client.on("connect", () => {
   });
   client.subscribe(TOPIC_TEMP, (err) => {
     if (err) console.error(`MQTT subscribe ${TOPIC_TEMP}:`, err);
+  });
+  client.subscribe(TOPIC_OUTSIDE_TEMP, (err) => {
+    if (err) console.error(`MQTT subscribe ${TOPIC_OUTSIDE_TEMP}:`, err);
   });
 });
 
@@ -41,6 +47,9 @@ client.on("message", (topic, payload) => {
       break;
     case TOPIC_TEMP:
       state.livingRoomTemp = data as TempSensorMessage;
+      break;
+    case TOPIC_OUTSIDE_TEMP:
+      state.outsideTemp = data as TempSensorMessage;
       break;
   }
 });
