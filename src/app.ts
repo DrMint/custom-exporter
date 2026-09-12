@@ -7,9 +7,12 @@ import { sysinfoEndpoint } from "src/sysinfo/endpoint";
 import { blockStatEndpoint } from "src/blockStat/endpoint";
 import { dockerEndpoint } from "./docker/endpoint";
 import { mqttEndpoint } from "./mqtt/endpoint";
+import { speedtestEndpoint } from "./speedtest/endpoint";
 
 Bun.serve({
   port: 8000,
+  // Speed tests take ~30s+ (download + upload phases); keep the connection alive.
+  idleTimeout: 120,
   fetch: (request) => {
     const pathname = new URL(request.url).pathname;
     switch (pathname) {
@@ -31,6 +34,8 @@ Bun.serve({
         return dockerEndpoint();
       case "/mqtt":
         return mqttEndpoint();
+      case "/speedtest":
+        return speedtestEndpoint();
       default:
         return new Response("Not found", { status: 404 });
     }

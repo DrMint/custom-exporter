@@ -5,6 +5,7 @@
     "": {
       "name": "node-zpool",
       "dependencies": {
+        "librespeed-js": "^0.1.1",
         "mqtt": "^5.15.2",
         "systeminformation": "^5.33.10",
       },
@@ -106,6 +107,8 @@
     "ip-address": ["ip-address@10.1.0", "", {}, "sha512-XXADHxXmvT9+CRxhXg56LJovE+bmWnEWB78LB83VZTprKTmaC5QfruXocxzTZ2Kl0DNwKuBdlIhjL8LeY8Sf8Q=="],
 
     "js-sdsl": ["js-sdsl@4.3.0", "", {}, "sha512-mifzlm2+5nZ+lEcLJMoBK0/IH/bDg8XnJfd/Wq6IP+xoCjLZsTOnV2QpxlVbX9bMnkl5PdEjNtBJ9Cj1NjifhQ=="],
+
+    "librespeed-js": ["librespeed-js@0.1.1", "", {}, "sha512-yjo5yAXtZg6j0jlRMtJxXM/paU+lrSSPSTFwWKgzavIzUCr9qlnpTmrB2OpNWGDipbTqS2HEZSB6tCuC0KzDuw=="],
 
     "lru-cache": ["lru-cache@10.4.3", "", {}, "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="],
 
