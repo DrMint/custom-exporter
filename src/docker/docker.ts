@@ -56,7 +56,7 @@ type Container = {
 export class DockerContainer {
   private constructor(
     readonly ps: TermDockerPs,
-    readonly stats: TermDockerStats
+    readonly stats: TermDockerStats,
   ) {}
 
   get container(): Container {
@@ -107,9 +107,13 @@ export class DockerContainer {
       case "MiB":
         return Math.floor(Number(usage.replace("MiB", "")) * 1024 * 1024);
       case "GiB":
-        return Math.floor(Number(usage.replace("GiB", "")) * 1024 * 1024 * 1024);
+        return Math.floor(
+          Number(usage.replace("GiB", "")) * 1024 * 1024 * 1024,
+        );
       case "TiB":
-        return Math.floor(Number(usage.replace("TiB", "")) * 1024 * 1024 * 1024 * 1024);
+        return Math.floor(
+          Number(usage.replace("TiB", "")) * 1024 * 1024 * 1024 * 1024,
+        );
       default:
         throw new Error(`Invalid memory usage: ${memUsage}`);
     }
